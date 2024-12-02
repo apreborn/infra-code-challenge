@@ -2,18 +2,18 @@
 
 ## Overview
 
-This project demonstrates how to deploy a simple static website on AWS using Terraform. The website is hosted on an S3 bucket with CloudFront as the CDN to deliver the content globally. The infrastructure is designed to leverage AWS free-tier resources where possible.
+This project demonstrates deploying a simple static website on AWS using Terraform. The website is hosted on an S3 bucket with CloudFront as the CDN to deliver the content globally. The infrastructure is designed to leverage AWS free-tier resources where possible.
 
 ## Features
 - **Static Website Hosting**: Hosted on an S3 bucket with public access managed via CloudFront.
-- **Global Content Delivery**: CloudFront CDN ensures fast delivery of content to users worldwide.
+- **Global Content Delivery**: CloudFront CDN ensures fast content delivery to users worldwide.
 - **Infrastructure as Code (IaC)**: All resources are provisioned using Terraform for consistency and reproducibility.
 
 ---
 ## Repository Structure
 ```bash
 ├── main.tf # Main configuration file to define resources and provider settings
-├── cloudfront.tf # S3 bucket & CloudFront distribution configuration 
+├── cloudfront_s3.tf # S3 bucket & CloudFront distribution configuration 
 ├── variables.tf # Variables definition 
 ├── terraform.tfvars # Variable values for deployment (can be customized for environments) 
 ├── .gitignore # Git ignore rules for Terraform files 
@@ -30,7 +30,12 @@ Before you begin, ensure you have the following:
 - Terraform installed (version >= 1.4.0).
 - AWS CLI configured with valid credentials (`aws configure`).
 
-### 2. **Configure the Terraform Provider**
+### 2. **Clone the Repository**:
+ ```bash 
+ git clone https://github.com/apreborn/infra-code-challenge.git
+ cd infra-code-challenge
+ ```
+### 3. **Configure the Terraform Provider**
 
 In the `main.tf` file, we define the provider block, configuring AWS as the cloud provider:
 
@@ -40,7 +45,7 @@ provider "aws" {
 }
 ```
 
-### 3. **Configure S3 for Static Website Hosting**
+### 4. **Configure S3 for Static Website Hosting**
 
 The `cloudfront_s3.tf` file contains the configuration for the S3 bucket, enabling static website hosting.
 
@@ -54,7 +59,7 @@ resource "aws_s3_bucket" "website_bucket" {
 }
 ```
 
-### 4. **Set Up CloudFront Distribution**
+### 5. **Set Up CloudFront Distribution**
 
 The `cloudfront_s3.tf` file sets up the CloudFront distribution to deliver your static content globally. This ensures fast delivery of the website to users.
 
@@ -77,7 +82,7 @@ resource "aws_cloudfront_distribution" "website_distribution" {
 }
 ```
 
-### 5. **Variables and Terraform Configuration**
+### 6. **Variables and Terraform Configuration**
 
 Variables like the S3 bucket name, CloudFront settings, and more are defined in `variables.tf`, and their values can be customized in `terraform.tfvars`.
 
@@ -88,7 +93,7 @@ variable "bucket_name" {
 }
 ```
 
-### 6. ***Terraform Initialization and Deployment***
+### 7. ***Terraform Initialization and Deployment***
 
 To initialize Terraform and deploy the infrastructure:
 ```bash
@@ -108,7 +113,7 @@ If I had more time, I would enhance the website in the following ways:
 
 2. **Dynamic Content**:
    - Introduce backend functionality by using AWS Lambda for serverless computing.
-   - Use Amazon DynamoDB for storing and serving dynamic content, such as blog posts or user-generated data.
+   - Use Amazon DynamoDB to store and serve dynamic content, such as blog posts or user-generated data.
 
 3. **CI/CD Pipelines**:
    - Implement a continuous integration and continuous delivery (CI/CD) pipeline using GitHub Actions or AWS CodePipeline to automate the deployment of changes to the website.
@@ -126,12 +131,12 @@ If I had more time, I would enhance the website in the following ways:
 ## Alternative Solutions Considered
 
 1. **AWS Amplify**:
-   - AWS Amplify is a powerful service that offers easy hosting for both static and dynamic websites. It also provides built-in CI/CD and authentication features.
-   - **Why Not Chosen**: While Amplify is great for rapid development, I opted for a more hands-on approach with Terraform and AWS services to demonstrate IaC (Infrastructure as Code) principles and AWS-specific configurations.
+   - AWS Amplify is a powerful service offering easy hosting for static and dynamic websites. It also provides built-in CI/CD and authentication features.
+   - **Why Not Chosen**: While Amplify is excellent for rapid development, I opted for a more hands-on approach with Terraform and AWS services to demonstrate IaC (Infrastructure as Code) principles and AWS-specific configurations.
 
 2. **Elastic Beanstalk or ECS/EKS**:
-   - These services provide a scalable platform for deploying web applications, but they involve more complexity than needed for a static website.
-   - **Why Not Chosen**: S3 and CloudFront offer a simpler, more cost-effective solution for static content. They are also easier to manage for this particular use case.
+   - These services provide a scalable platform for deploying web applications but involve more complexity than needed for a static website.
+   - **Why Not Chosen**: S3 and CloudFront offer a more straightforward, cost-effective static content solution. They are also easier to manage for this particular use case.
 
 3. **GitHub Pages or Netlify**:
    - These are great options for quickly hosting static websites, but they don’t provide the level of customization and infrastructure control that AWS offers.
@@ -160,9 +165,9 @@ To take this website from a simple prototype to a production-grade solution, the
 
 3. **Collaboration Across Teams**:
    - Use Terraform modules to structure the code into reusable components.
-   - Implement remote state management with an S3 backend and DynamoDB for state locking to allow safe collaboration across teams.
+   - Implement remote state management with an S3 backend and DynamoDB for state locking to allow safe team collaboration.
    - Implement a GitOps workflow for version-controlled deployments.
-   - Integrate automated tests in the CI/CD pipeline to validate infrastructure and application behavior.
+   - Integrate automated CI/CD pipeline tests to validate infrastructure and application behaviour.
 
 4. **CI/CD Integration**:
    - Set up automated deployment pipelines (e.g., GitHub Actions or AWS CodePipeline) for continuous updates to the website.
@@ -183,7 +188,7 @@ When working in a collaborative environment, it is essential to implement best p
   Example:
   ```bash
   git checkout -b feature/custom-domain
-  # Work on the feature, commit changes, and push them to remote
+  # Work on the feature, commit changes and push them to remote
   git push origin feature/custom-domain
   ```
 ### 2. **Pull Requests and Code Reviews**
@@ -262,7 +267,7 @@ jobs:
 
 1. **Clone the Repository**:
    ```bash 
-   git clone https://github.com/yourusername/terraform-static-website.git
+   git clone https://github.com/apreborn/infra-code-challenge.git
    cd terraform-static-website
    ```
 2. **Modify Variables (optional)**: Edit terraform.tfvars to customize the S3 bucket name or other variables.
@@ -272,4 +277,11 @@ jobs:
    terraform plan
    terraform apply
    ```
+4. The Static website is accessible via the below Cloudfront distribution endpoint.
+   ```bash
+   Outputs:
+   bucket_arn = "arn:aws:s3:::robin-code-challenge-s3"
+   Object URL = "https://robin-code-challenge-s3.s3.us-east-1.amazonaws.com/index.html"
+   cloudfront_url = "d35v03glrit7yy.cloudfront.net"
+   ``` 
    
