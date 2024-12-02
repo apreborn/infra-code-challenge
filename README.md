@@ -284,5 +284,7 @@ jobs:
    Object URL = "https://robin-code-challenge-s3.s3.us-east-1.amazonaws.com/index.html"
    cloudfront_url = "d35v03glrit7yy.cloudfront.net"
    ```
-   Paste the `https://d35v03glrit7yy.cloudfront.net/` into the browser to view the static webpage.
+   Paste this URL `https://d35v03glrit7yy.cloudfront.net/` into the browser to view the static webpage.
+   <img width="561" alt="Screen Shot 2024-12-02 at 8 19 55 pm" src="https://github.com/user-attachments/assets/77fdb30e-5337-433f-9b56-916ba58ae9fc">
+
    
