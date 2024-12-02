@@ -283,5 +283,6 @@ jobs:
    bucket_arn = "arn:aws:s3:::robin-code-challenge-s3"
    Object URL = "https://robin-code-challenge-s3.s3.us-east-1.amazonaws.com/index.html"
    cloudfront_url = "d35v03glrit7yy.cloudfront.net"
-   ``` 
+   ```
+   Paste the `https://d35v03glrit7yy.cloudfront.net/` into the browser to view the static webpage.
    
