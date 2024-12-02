@@ -1,0 +1,13 @@
+# Ignore Terraform state files and backups
+*.tfstate
+*.tfstate.backup
+.terraform
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE/editor-specific files
+.idea/
+*.iml
+.vscode/
